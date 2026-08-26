@@ -1,5 +1,5 @@
 // 1. Zadej přesný název tvého pmtiles souboru
-const PMTILES_URL = "moje-mapa_2.pmtiles";
+const PMTILES_URL = "moje-mapa.pmtiles";
 
 // 2. Zaregistrujeme formát PMTiles do mapového enginu
 const protocol = new pmtiles.Protocol();
