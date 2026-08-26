@@ -3,22 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Moje vlastní PMTiles mapa</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    <!-- CSS pro MapLibre -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="map"></div>
 
-    <!-- 1. Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- 2. Základní PMTiles parser -->
+    <!-- JS pro MapLibre a PMTiles -->
+    <script src="https://unpkg.com/maplibre-gl@3.3.1/dist/maplibre-gl.js"></script>
     <script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
-    <!-- 3. Protomaps Leaflet vrstva -->
-    <script src="https://unpkg.com/protomaps-leaflet@3.0.1/dist/protomaps-leaflet.min.js"></script>
 
+    <!-- Tvůj JavaScript -->
     <script src="index.js"></script>
   </body>
 </html>
