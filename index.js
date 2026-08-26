@@ -1,26 +1,55 @@
-// Název tvého souboru
-const PMTILES_URL = "moje-mapa.pmtiles";
-
-// 1. Zaregistrujeme formát PMTiles do mapového enginu
+// 1. Zaregistrujeme formát PMTiles
 const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
-// 2. Stáhneme oficiální "světlý" vizuální styl pro Protomaps
-fetch("https://protomaps.github.io/basemaps-assets/style-light.json")
-  .then(response => response.json())
-  .then(style => {
-    
-    // 3. TADY JE TO KOUZLO: Vnutíme stylu tvůj lokální 13MB soubor místo stahování z internetu
-    style.sources.protomaps.url = `pmtiles://${PMTILES_URL}`;
+// 2. Definice minimalistického stylu přímo v kódu (žádné stahování zvenku)
+const myStyle = {
+  version: 8,
+  sources: {
+    protomaps: {
+      type: "vector",
+      url: "pmtiles://moje-mapa.pmtiles"
+    }
+  },
+  layers: [
+    {
+      id: "background",
+      type: "background",
+      paint: { "background-color": "#f8f4f0" }
+    },
+    {
+      id: "water",
+      type: "fill",
+      source: "protomaps",
+      "source-layer": "water",
+      paint: { "fill-color": "#b5d0d0" }
+    },
+    {
+      id: "roads",
+      type: "line",
+      source: "protomaps",
+      "source-layer": "roads",
+      paint: { 
+        "line-color": "#ffffff",
+        "line-width": 1 
+      }
+    },
+    {
+      id: "buildings",
+      type: "fill",
+      source: "protomaps",
+      "source-layer": "buildings",
+      paint: { "fill-color": "#e0ded9" }
+    }
+  ]
+};
 
-    // 4. Inicializace samotné mapy
-    const map = new maplibregl.Map({
-      container: "map",
-      style: style,          // Napojení upraveného stylu
-      center: [16.55, 49.1], // POZOR! MapLibre má souřadnice opačně než Leaflet: [délka, šířka]
-      zoom: 12
-    });
-    
-    // Přidání navigačních tlačítek (zoom) do rohu
-    map.addControl(new maplibregl.NavigationControl());
-  });
+// 3. Inicializace MapLibre mapy
+const map = new maplibregl.Map({
+  container: "map",
+  style: myStyle,
+  center: [16.55, 49.1], // [délka, šířka]
+  zoom: 12
+});
+
+map.addControl(new maplibregl.NavigationControl());
